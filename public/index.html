@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Ada</title>
+  <meta name="description" content="Ta base de reels dev & Claude Code : chaque reel devient une fiche avec commandes, prompts et outils prêts à copier.">
+  <meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#110818" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- PWA / écran d'accueil -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Ada">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <div id="splash" class="splash"><img src="/icons/icon-192.png" alt="" width="72" height="72"></div>
+
+  <div class="shell">
+    <aside class="sidenav" id="sidenav"></aside>
+    <main id="view" class="view"></main>
+  </div>
+
+  <div class="offline" id="offline" hidden>Serveur Ada injoignable — tes fiches restent consultables, les changements partiront à la reconnexion.</div>
+  <nav class="tabbar" id="tabbar" aria-label="Navigation principale"></nav>
+  <div id="sheet-root" class="sheet-root"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <noscript>Ada a besoin de JavaScript pour fonctionner.</noscript>
+</body>
+</html>

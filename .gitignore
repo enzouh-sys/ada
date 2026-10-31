@@ -1,0 +1,15 @@
+node_modules/
+.env
+.DS_Store
+data/
+export/
+.firebase/
+firebase-debug.log
+
+# Propres à chaque installation (générés par npm run setup / npm run configure)
+ada.config.json
+.ada-session.json
+.firebaserc
+firebase.json
+firestore.rules
+public/js/config.js

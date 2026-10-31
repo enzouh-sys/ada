@@ -1,0 +1,20 @@
+rules_version = '2';
+
+// Ada — base privée. Seuls les comptes Google listés dans ada.config.json (ownerEmails)
+// lisent et écrivent quoi que ce soit. Fichier généré par `npm run configure` : modifie le modèle.
+// - users/{uid}/reels   : les fiches (et les imports en attente d'analyse)
+// - users/{uid}/media   : les captures d'un import, le temps que le PC de la maison les lise
+// - users/{uid}/devices : le PC qui analyse (signal « en ligne », moteur utilisé)
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in {{OWNER_EMAILS}};
+    }
+
+    match /users/{userId}/{document=**} {
+      allow read, write: if owner() && request.auth.uid == userId;
+    }
+  }
+}

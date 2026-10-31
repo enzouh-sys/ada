@@ -1,0 +1,31 @@
+{
+  "id": "/",
+  "name": "Ada — Reels dev & Claude Code",
+  "short_name": "Ada",
+  "description": "Transforme les reels dev et Claude Code en fiches : commandes, prompts et outils prêts à copier.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/#/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#45066F",
+  "theme_color": "#45066F",
+  "categories": ["developer", "productivity", "education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Importer un reel", "short_name": "Importer", "url": "/?action=import", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Le labo", "short_name": "Labo", "url": "/#/labo", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Snippets", "short_name": "Snippets", "url": "/#/snippets", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}

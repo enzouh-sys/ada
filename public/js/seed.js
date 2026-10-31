@@ -1,0 +1,132 @@
+// Fiches d'exemple, créées au premier lancement (supprimables d'un geste dans les réglages).
+const ex = (r) => ({ platform: "ada", author: "Exemple Ada", engine: "manuel", example: true, ...r });
+
+export const SEED_REELS = [
+  ex({
+    title: "Créer un CLAUDE.md avec /init",
+    summary: "Claude Code lit le fichier CLAUDE.md à chaque session : c'est la mémoire du projet. /init en génère une première version à partir du code.",
+    emoji: "🧠",
+    category: "Claude Code",
+    level: "Débutant",
+    tags: ["claude-code", "claude-md", "mémoire"],
+    status: "adopted",
+    keyPoints: [
+      "CLAUDE.md est chargé automatiquement au démarrage de chaque session.",
+      "/init analyse le projet et rédige un premier CLAUDE.md.",
+      "On y met les commandes utiles, les conventions et les pièges du projet.",
+      "Court et à jour vaut mieux que long et exhaustif.",
+    ],
+    steps: [
+      { text: "Ouvre Claude Code à la racine du projet.", command: "claude" },
+      { text: "Lance la génération du fichier mémoire.", command: "/init" },
+      { text: "Relis le résultat et supprime ce qui est évident ou faux." },
+      { text: "Ajoute tes conventions (style, tests, branches) et commite le fichier." },
+    ],
+    snippets: [
+      { kind: "raccourci", title: "Générer le CLAUDE.md", language: "", content: "/init" },
+      {
+        kind: "config",
+        title: "Squelette de CLAUDE.md",
+        language: "md",
+        content: "# Projet\n\n## Commandes\n- `npm run dev` : serveur local\n- `npm test` : tests\n\n## Conventions\n- Code et commentaires en français\n- Pas de nouvelle dépendance sans demander\n\n## Pièges\n- Les migrations se lancent à la main",
+      },
+    ],
+    resources: [{ name: "Docs Claude Code — mémoire", kind: "doc", url: "https://docs.claude.com/en/docs/claude-code/memory", note: "Où placer les CLAUDE.md et comment ils s'empilent" }],
+    tryIt: "Lance /init sur ton projet actuel et coupe le résultat de moitié.",
+    claudePrompt: "Relis le CLAUDE.md de ce projet. Propose une version plus courte et plus utile : commandes à connaître, conventions réellement suivies dans le code, pièges à éviter. Montre-moi le diff avant d'écrire.",
+    minutesToTry: 10,
+  }),
+  ex({
+    title: "Faire planifier Claude Code avant qu'il code",
+    summary: "Le mode plan fait réfléchir Claude Code et proposer un plan sans toucher aux fichiers. Tu valides, puis il exécute.",
+    emoji: "🗺️",
+    category: "Claude Code",
+    level: "Débutant",
+    tags: ["claude-code", "plan-mode", "workflow"],
+    status: "doing",
+    keyPoints: [
+      "Maj+Tab fait défiler les modes jusqu'au mode plan.",
+      "En mode plan, Claude lit et explore mais ne modifie rien.",
+      "Idéal pour les grosses tâches : on corrige le plan, pas le code.",
+    ],
+    steps: [
+      { text: "Dans Claude Code, appuie sur Maj+Tab jusqu'à voir le mode plan." },
+      { text: "Décris la fonctionnalité, avec les contraintes importantes." },
+      { text: "Lis le plan proposé, corrige-le, puis accepte-le pour lancer l'exécution." },
+    ],
+    snippets: [
+      { kind: "raccourci", title: "Changer de mode", language: "", content: "Maj + Tab" },
+      { kind: "prompt", title: "Demande de plan", language: "", content: "Avant d'écrire du code, explore le projet et propose-moi un plan en étapes : fichiers touchés, risques, et comment on vérifie que ça marche." },
+    ],
+    resources: [],
+    tryIt: "Prends ta prochaine tâche et fais-la d'abord en mode plan.",
+    claudePrompt: "Je veux ajouter [fonctionnalité]. Explore d'abord le code concerné et propose-moi un plan détaillé (fichiers, étapes, tests). Ne modifie aucun fichier tant que je n'ai pas validé le plan.",
+    minutesToTry: 5,
+  }),
+  ex({
+    title: "Brancher un serveur MCP en une commande",
+    summary: "Les serveurs MCP donnent de nouveaux outils à Claude Code (Notion, GitHub, une base de données…). claude mcp add les installe.",
+    emoji: "🔌",
+    category: "MCP",
+    level: "Intermédiaire",
+    tags: ["mcp", "claude-code", "intégrations"],
+    status: "todo",
+    keyPoints: [
+      "Un serveur MCP expose des outils que Claude peut appeler.",
+      "claude mcp add ajoute un serveur, claude mcp list les affiche.",
+      "Dans une session, /mcp montre l'état des serveurs et permet de s'authentifier.",
+    ],
+    steps: [
+      { text: "Ajoute un serveur MCP distant (ici Notion).", command: "claude mcp add --transport http notion https://mcp.notion.com/mcp" },
+      { text: "Vérifie qu'il est bien enregistré.", command: "claude mcp list" },
+      { text: "Ouvre Claude Code et connecte-toi au serveur.", command: "/mcp" },
+    ],
+    snippets: [
+      { kind: "commande", title: "Ajouter un serveur HTTP", language: "bash", content: "claude mcp add --transport http notion https://mcp.notion.com/mcp" },
+      { kind: "commande", title: "Lister les serveurs", language: "bash", content: "claude mcp list" },
+    ],
+    resources: [
+      { name: "Docs Claude Code — MCP", kind: "doc", url: "https://docs.claude.com/en/docs/claude-code/mcp", note: "Installer et gérer les serveurs MCP" },
+      { name: "Notion MCP", kind: "mcp", url: "https://mcp.notion.com/mcp", note: "Lire et écrire dans tes pages Notion" },
+    ],
+    tryIt: "Branche un serveur MCP que tu utilises déjà au quotidien et demande-lui une tâche simple.",
+    claudePrompt: "Liste les serveurs MCP disponibles dans cette session et explique-moi ce que chacun permet. Puis propose 3 tâches de ce projet qu'ils pourraient accélérer.",
+    minutesToTry: 10,
+    caution: "Un serveur MCP agit avec tes accès : n'installe que des serveurs de confiance.",
+  }),
+  ex({
+    title: "Formater chaque fichier modifié avec un hook",
+    summary: "Un hook PostToolUse lance une commande après chaque modification de Claude : ici Prettier, pour que le code soit toujours propre.",
+    emoji: "🪝",
+    category: "Skills & hooks",
+    level: "Avancé",
+    tags: ["hooks", "claude-code", "automatisation"],
+    status: "todo",
+    keyPoints: [
+      "Les hooks se déclarent dans .claude/settings.json.",
+      "PostToolUse se déclenche après un outil, filtré par matcher (Edit|Write).",
+      "Le hook reçoit en JSON sur l'entrée standard les détails de l'outil appelé.",
+    ],
+    steps: [
+      { text: "Ouvre (ou crée) .claude/settings.json à la racine du projet." },
+      { text: "Colle la config du hook ci-dessous." },
+      { text: "Demande une petite modification à Claude et vérifie que le fichier est reformaté." },
+    ],
+    snippets: [
+      {
+        kind: "config",
+        title: ".claude/settings.json",
+        language: "json",
+        content: '{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Edit|Write",\n        "hooks": [\n          { "type": "command", "command": "jq -r \'.tool_input.file_path\' | xargs npx prettier --write" }\n        ]\n      }\n    ]\n  }\n}',
+      },
+    ],
+    resources: [
+      { name: "Docs Claude Code — hooks", kind: "doc", url: "https://docs.claude.com/en/docs/claude-code/hooks", note: "Tous les événements et le format d'entrée" },
+      { name: "jq", kind: "outil", url: "https://jqlang.org", note: "Lire le JSON reçu par le hook" },
+    ],
+    tryIt: "Ajoute ce hook sur un projet perso et fais modifier un fichier par Claude.",
+    claudePrompt: "Ajoute à ce projet un hook Claude Code PostToolUse (matcher Edit|Write) qui formate le fichier modifié avec l'outil de formatage déjà utilisé ici. Vérifie d'abord lequel est configuré, puis montre-moi le .claude/settings.json proposé.",
+    minutesToTry: 15,
+    caution: "Un hook exécute une commande shell à chaque déclenchement : relis-la avant de l'activer.",
+  }),
+];
