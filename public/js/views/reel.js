@@ -9,6 +9,7 @@ import { STATUSES, resourceKindOf, PLATFORM_LABEL } from "../taxonomy.js";
 import { reelToMarkdown } from "../markdown.js";
 import { navigate } from "../router.js";
 import { openImporter } from "./importer.js";
+import { openShareToClaude } from "./share.js";
 
 // Où en est l'analyse de l'import : en attente du PC, en cours, ou à compléter.
 function analysisCard(r) {
@@ -207,6 +208,7 @@ export function render({ id }) {
           </details>` : ""}
 
           <div class="reel-actions">
+            ${waiting ? "" : `<button class="btn btn-primary cc-send" id="cc">${icon("terminal", { size: 17 })} Envoyer à Claude Code</button>`}
             <button class="btn btn-ghost" id="md">${icon("copy", { size: 17 })} Copier en Markdown</button>
             <a class="btn btn-ghost" href="#/modifier/${r.id}">${icon("edit", { size: 17 })} Modifier</a>
           </div>
@@ -231,6 +233,7 @@ function moreSheet(r) {
       <h2 class="sheet-title">${esc(r.emoji)} ${esc(r.title)}</h2>
       <div class="menu">
         ${url ? `<a class="menu-item" href="${esc(url)}" target="_blank" rel="noopener">${icon("external")}<span>Ouvrir sur ${esc(PLATFORM_LABEL[r.platform] || "le site")}</span></a>` : ""}
+        <button class="menu-item" data-act="cc">${icon("terminal")}<span>Envoyer à Claude Code</span></button>
         <button class="menu-item" data-act="md">${icon("copy")}<span>Copier en Markdown</span></button>
         ${navigator.share ? `<button class="menu-item" data-act="share">${icon("share")}<span>Partager</span></button>` : ""}
         ${r.sourceUrl || r.caption || r.input?.url ? `<button class="menu-item" data-act="redo">${icon("refresh")}<span>Refaire la fiche (légende ou captures en plus)</span></button>` : ""}
@@ -246,6 +249,7 @@ function moreSheet(r) {
           if (!act) return;
           e.preventDefault();
           if (act === "md") { closeSheet(); copyMarkdown(r); }
+          if (act === "cc") { closeSheet(true); openShareToClaude(r); }
           if (act === "share") { closeSheet(); navigator.share({ title: r.title, text: reelToMarkdown(r), url: url || undefined }).catch(() => {}); }
           if (act === "redo") { closeSheet(true); openImporter({ reanalyse: r.id }); }
           if (act === "edit") { closeSheet(true); navigate(`#/modifier/${r.id}`); }
@@ -279,6 +283,7 @@ export function mount(root, { id }) {
   root.querySelector("#fav").addEventListener("click", () => { haptic(10); patchReel(id, { favorite: !r.favorite }); });
   root.querySelector("#more").addEventListener("click", () => moreSheet(r));
   root.querySelector("#md").addEventListener("click", () => copyMarkdown(r));
+  root.querySelector("#cc")?.addEventListener("click", () => openShareToClaude(r));
   root.querySelector("#complete")?.addEventListener("click", () => openImporter({ reanalyse: id }));
   root.querySelector("#add-input")?.addEventListener("click", () => openImporter({ reanalyse: id }));
   root.querySelector("#retry")?.addEventListener("click", () => { requestAnalysis(id); toast(homeStatus().online ? "C'est reparti 🧠" : "Ada réessaiera une fois à la maison 🏠"); });

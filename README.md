@@ -102,6 +102,19 @@ Ce que tu écris dans « Mes notes » d'une fiche, ou dans « Consignes pour Ada
 
 Si tu refais l'analyse, les mêmes fiches sont mises à jour, en gardant leur statut et leurs notes.
 
+### Ada dans Claude Code
+
+Deux façons de sortir une fiche vers la conversation Claude Code de ton choix :
+
+- **Le bouton « Envoyer à Claude Code »** sur chaque fiche : il copie un message prêt à coller (la fiche, ou toutes les fiches du même reel, plus ce que tu veux que Claude en fasse), télécharge un fichier `.md`, ou copie une référence courte.
+- **Le serveur MCP d'Ada** : une commande, une seule fois, sur le PC d'Ada :
+
+  ```bash
+  claude mcp add ada -s user -- node "/chemin/vers/ada/mcp.js"
+  ```
+
+  Dans n'importe quelle conversation Claude Code, Claude cherche et lit alors tes fiches tout seul (outils `ada_search`, `ada_get`, `ada_adopted`). Par exemple : « cherche dans Ada une astuce sur les hooks », « applique la fiche Ada sur Superpowers à ce projet », « applique mes astuces Ada adoptées ». Il est en lecture seule, et utilise la connexion du PC de la maison.
+
 ### Les écrans
 
 | Écran | Fonctionnalités |
@@ -141,6 +154,7 @@ lib/analyze.js             schéma des fiches, consignes, moteurs cli / api / co
 lib/sources.js             lecture des liens (Instagram, TikTok, YouTube, Facebook, GitHub, web)
 lib/local-analyze.js       analyse sans IA
 lib/firestore-rest.js      accès Firestore en ton nom (API REST, jeton de connexion)
+mcp.js                     serveur MCP : tes fiches dans Claude Code (lecture seule)
 public/                    l'app (Firebase Hosting)
   js/cloud.js              connexion Google + Firestore
   js/store.js              fiches en direct, file d'imports, PC de la maison

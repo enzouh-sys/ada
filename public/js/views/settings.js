@@ -48,6 +48,9 @@ export function openSettings() {
   const examples = reels.filter((r) => r.example).length;
   const adopted = reels.filter((r) => r.status === "adopted" && r.analysis.state === "done").length;
   const shortcutUrl = `${APP_URL}/?url=`;
+  // Commande pour brancher le serveur MCP d'Ada dans Claude Code (chemin exact si on est sur le PC d'Ada).
+  const local = getState().local;
+  const mcpCommand = `claude mcp add ada -s user -- node "${local?.dir ? `${local.dir}/mcp.js` : "<dossier d'ada>/mcp.js"}"`;
   const onPhone = isMobile();
 
   openSheet(
@@ -93,6 +96,13 @@ export function openSettings() {
             <li>Dans Instagram, TikTok, YouTube ou Facebook : <b>Partager → Ada</b>. C'est envoyé tout de suite, sans copier le lien.</li>
           </ol>
         </details>
+      </section>
+
+      <section class="set-block">
+        <h3>${icon("terminal", { size: 18 })} Ada dans Claude Code</h3>
+        <p class="set-hint">Branche Ada à Claude Code : dans n'importe quelle conversation, Claude cherche et lit tes fiches tout seul. Une commande, une seule fois, sur le PC où tourne Ada :</p>
+        <div class="url-row"><code>${esc(mcpCommand)}</code>${copyButton(mcpCommand, { label: "Copier", cls: "sm" })}</div>
+        <p class="set-hint">Ensuite, dans Claude Code : « cherche dans Ada une astuce sur les hooks », « applique la fiche Ada sur Superpowers à ce projet », « applique mes astuces Ada adoptées ». Sur chaque fiche, le bouton <b>Envoyer à Claude Code</b> copie aussi la fiche (ou une référence courte) à coller où tu veux.</p>
       </section>
 
       <section class="set-block">

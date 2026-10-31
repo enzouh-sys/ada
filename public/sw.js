@@ -1,5 +1,5 @@
 // Service worker : l'app s'ouvre instantanément et reste consultable hors ligne (sauf l'analyse).
-const VERSION = "ada-v10";
+const VERSION = "ada-v11";
 const SHELL = [
   "/",
   "/index.html",
@@ -28,6 +28,7 @@ const SHELL = [
   "/js/views/tools.js",
   "/js/views/editor.js",
   "/js/views/importer.js",
+  "/js/views/share.js",
   "/js/views/settings.js",
 ];
 

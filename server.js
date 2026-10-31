@@ -104,6 +104,7 @@ const server = createServer(async (req, res) => {
         paired: worker ? { uid: worker.uid, email: worker.email } : null,
         worker: worker ? { ...worker.status } : null,
         appUrl: APP_URL,
+        dir: here.replace(/\\/g, "/"),
         lan: lanUrls(),
       });
     }
