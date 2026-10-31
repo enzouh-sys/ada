@@ -151,3 +151,7 @@ scripts/configure.js       génère la config depuis ada.config.json
 firestore.rules.template   règles de sécurité (comptes autorisés insérés par configure)
 assets/logo.png            logo source (portrait d'Ada Lovelace)
 ```
+
+## Licence
+
+[MIT](LICENSE) : tu peux utiliser, modifier et redistribuer Ada librement, en gardant la mention de copyright.

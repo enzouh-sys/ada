@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Ada — tes reels dev & Claude Code transformés en fiches. App en ligne, analyses faites par ton IA sur ton PC.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "setup": "node scripts/setup.js",
