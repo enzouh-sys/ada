@@ -366,6 +366,9 @@ body.immersive .tabbar { transform: translateY(calc(100% + 40px)); }
 .fact strong { font-size: 15px; }
 .fact small { font-size: 12px; color: var(--muted); }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.direct-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.direct-links .btn { max-width: 100%; }
+.direct-links .btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tag { padding: 4px 10px; border-radius: 8px; font: 500 12.5px var(--mono); color: var(--ink-2); background: var(--bg-2); }
 .tag::before { content: "#"; opacity: 0.45; margin-right: 1px; }
 

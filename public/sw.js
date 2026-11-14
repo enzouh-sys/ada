@@ -1,5 +1,5 @@
 // Service worker : l'app s'ouvre instantanément et reste consultable hors ligne (sauf l'analyse).
-const VERSION = "ada-v11";
+const VERSION = "ada-v12";
 const SHELL = [
   "/",
   "/index.html",

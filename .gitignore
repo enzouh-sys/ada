@@ -13,3 +13,6 @@ ada.config.json
 firebase.json
 firestore.rules
 public/js/config.js
+
+# Notes de travail perso
+ETAT.md

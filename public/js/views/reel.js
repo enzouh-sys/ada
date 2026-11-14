@@ -66,6 +66,17 @@ function groupStrip(r) {
   </section>`;
 }
 
+// Les sites officiels d'abord, puis les repos : ce sont les liens directs affichés sous le titre.
+const LINK_ORDER = { site: 0, repo: 1 };
+function directLinks(r) {
+  const links = r.resources
+    .filter((x) => x.kind in LINK_ORDER && safeUrl(x.url))
+    .sort((a, b) => LINK_ORDER[a.kind] - LINK_ORDER[b.kind])
+    .slice(0, 4);
+  if (!links.length) return "";
+  return `<div class="direct-links">${links.map((x) => `<a class="btn ${x.kind === "site" ? "btn-primary" : "btn-soft"} btn-sm" href="${esc(safeUrl(x.url))}" target="_blank" rel="noopener">${icon(resourceKindOf(x.kind).icon, { size: 15 })}<span>${esc(x.name)}</span></a>`).join("")}</div>`;
+}
+
 export function render({ id }) {
   const r = getReel(id);
   if (!r) {
@@ -102,6 +113,7 @@ export function render({ id }) {
               <div class="fact">${icon("code", { size: 18 })}<strong>${r.snippets.length}</strong><small>snippet${r.snippets.length > 1 ? "s" : ""}</small></div>
             </div>`}
             ${r.tags.length ? `<div class="tags">${r.tags.map((t) => `<a class="tag" href="#/biblio?tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join("")}</div>` : ""}
+            ${waiting ? "" : directLinks(r)}
           </div>
 
           ${analysisCard(r)}
@@ -179,7 +191,7 @@ export function render({ id }) {
           <section class="block">
             <div class="block-head"><h2>Outils & liens</h2></div>
             <ul class="res-list">
-              ${r.resources.map((x) => {
+              ${[...r.resources].sort((a, b) => (LINK_ORDER[a.kind] ?? 2) - (LINK_ORDER[b.kind] ?? 2)).map((x) => {
                 const url = safeUrl(x.url);
                 const inner = `<span class="res-ic">${icon(resourceKindOf(x.kind).icon, { size: 18 })}</span><span class="res-text"><strong>${esc(x.name)}</strong><small>${esc(resourceKindOf(x.kind).one)}${x.note ? ` · ${esc(x.note)}` : ""}</small></span>${url ? icon("external", { size: 16, cls: "res-go" }) : ""}`;
                 return `<li>${url ? `<a class="res" href="${esc(url)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="res">${inner}</div>`}</li>`;
