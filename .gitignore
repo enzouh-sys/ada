@@ -3,6 +3,7 @@ node_modules/
 .DS_Store
 data/
 export/
+logs/
 .firebase/
 firebase-debug.log
 

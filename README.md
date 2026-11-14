@@ -64,7 +64,10 @@ npm run dev
 2. Sur ton téléphone, ouvre l'adresse affichée par le terminal (aussi en QR code sur l'accueil d'Ada), connecte-toi et installe l'app.
 3. Importe un reel. Tant que `npm run dev` tourne, il est analysé en 1 à 4 minutes.
 
-Ensuite, `npm run dev` suffit à chaque démarrage. Pour ne plus y penser, lance-le au démarrage de ta session (Planificateur de tâches sous Windows, `launchd` sous macOS, `systemd --user` sous Linux).
+Ensuite, `npm run dev` suffit à chaque démarrage. **Pour ne plus y penser** :
+
+- **Windows** : `scriptsutostart-windows.cmd` lance Ada toute seule, sans fenêtre, à chaque ouverture de session (tâche planifiée pour ton compte, sans droits administrateur). Le journal est dans `logs/ada.log`, et `scriptsutostart-windows.cmd off` désactive le lancement.
+- **macOS / Linux** : lance `npm run dev` au démarrage de ta session (`launchd`, `systemd --user`).
 
 ## Ton IA
 
