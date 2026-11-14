@@ -66,7 +66,7 @@ npm run dev
 
 Ensuite, `npm run dev` suffit à chaque démarrage. **Pour ne plus y penser** :
 
-- **Windows** : `scriptsutostart-windows.cmd` lance Ada toute seule, sans fenêtre, à chaque ouverture de session (tâche planifiée pour ton compte, sans droits administrateur). Le journal est dans `logs/ada.log`, et `scriptsutostart-windows.cmd off` désactive le lancement.
+- **Windows** : `scripts\autostart-windows.cmd` lance Ada toute seule, sans fenêtre, à chaque ouverture de session (tâche planifiée pour ton compte, sans droits administrateur). Le journal est dans `logs/ada.log`, et `scripts\autostart-windows.cmd off` désactive le lancement.
 - **macOS / Linux** : lance `npm run dev` au démarrage de ta session (`launchd`, `systemd --user`).
 
 ## Ton IA
