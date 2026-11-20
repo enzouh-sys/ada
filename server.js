@@ -37,7 +37,11 @@ function loadDotEnv(file) {
   if (!existsSync(file)) return;
   for (const line of readFileSync(file, "utf8").split(/\r?\n/)) {
     const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/i);
-    if (m && m[2] && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+    if (!m || !m[2] || process.env[m[1]]) continue;
+    let value = m[2].replace(/^["']|["']$/g, "");
+    // Un jeton ou une clé ne contient jamais d'espace : un copier depuis le terminal en ajoute aux retours à la ligne.
+    if (/_(TOKEN|KEY)$/.test(m[1])) value = value.replace(/\s+/g, "");
+    process.env[m[1]] = value;
   }
 }
 
